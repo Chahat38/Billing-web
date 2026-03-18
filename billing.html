@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Billing System</title>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #838586;
+    text-align: center;
+}
+
+h2 {
+    color: #333;
+    margin-top: 20px;
+}
+
+form {
+    background: white;
+    width: 300px;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#result {
+    width: 300px;
+    margin: 20px auto;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: left;
+}
+</style>
+</head>
+<body>
+    <h2>Online Billing System</h2>
+    <form >
+        <label for="name">Consumer Name:</label>
+        <input type="name"id="name" placeholder="Name"><br>
+
+        <label for="Number">Refrence No:</label>
+        <input type="number"id="Number" placeholder="Ref No"><br>
+
+        <label for="Amount">Amount:</label>
+        <input type="number"id="Amount" min="0" placeholder="Enter Amount">
+        
+        <button type="button" onclick="Bill()">Pay Bill</button>
+        
+    </form>
+     <p id="result"></p>
+     <script>
+        function Bill() {
+            document.getElementById("result").innerHTML="";
+            let name = document.getElementById("name").value;
+            let Number=(document.getElementById("Number").value);
+            let Amount= parseFloat(document.getElementById("Amount").value)
+            
+        
+         if (name ==="" || Amount <= 0) {
+           document.getElementById("output").innerHTML = "Invalid Input";
+            return;
+       
+          }
+
+        let discount = 0;
+        if(Amount>=5000){
+            discount = Amount * 20 / 100;
+        }
+        else if(Amount>=3000 && Amount < 5000){
+           discount = Amount * 10 / 100;
+        }
+        else if(Amount=>1000 && Amount < 3000){
+            discount = Amount * 5 / 100;
+
+        }
+        else{
+            discount = 0;
+        }
+
+
+        
+         let afterdiscount = Amount - discount;
+         let tax = afterdiscount * 5 / 100;
+         let finalBill = afterdiscount + tax;
+        
+        let  status;
+        if(finalBill > 4000){
+            status = "Premium Customer"
+        }
+        else{
+            status = "Regular Customer"
+        }
+
+        document.getElementById("result").innerHTML = 
+        "Name: " + name + "<br>" +
+    "Original: " + Amount + " <br>" +
+    "Discount: " + discount + " <br>" +
+    "Tax: " + tax + " <br>" +
+    "Final Bill: " + finalBill + " <br>" +
+    "Status: " + status;
+
+    document.querySelector("form").reset();
+
+    }
+    
+     </script>
+</body>
+</html>
